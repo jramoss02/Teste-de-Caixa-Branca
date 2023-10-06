@@ -1,19 +1,15 @@
-# Teste caixa branca (ETAPA 1)
+# Teste caixa branca (ETAPA 3)
 
-## 🛠️ Erros que podem conter no código
+## 📁 Documentação
 
 
-* O código está atualmente concatenando diretamente os valores de login e senha nas consultas SQL. Isso torna o código vulnerável a ataques de injeção SQL.
+* A classe User contém três membros de classe: nome para armazenar o nome do usuário, result para armazenar o resultado da verificação de usuário (verdadeiro se a verificação for bem-sucedida, falso caso contrário) e métodos para conectar ao banco de dados MySQL e verificar as credenciais do usuário.
 
-`<sql += "where login = " + "'" + login + "'";>`
-* O código atualmente captura exceções, mas não faz nada com elas. Pelo menos, é importante registrar ou lidar com exceções de alguma forma para que você possa depurar problemas no código.
+* O método conectarBD é responsável por estabelecer uma conexão com o banco de dados MySQL. Ele usa o driver JDBC do MySQL para fazer isso. A URL de conexão e as credenciais (nome de usuário e senha) estão codificadas no método.
 
-`<catch (Exception e) {}>`
-* Está tentando carregar a classe errada para o driver MySQL. Deve ser "com.mysql.cj.jdbc.Driver" ao invés de "com.mysql.Driver.Manager".
+* O método VerificarUsuario é usado para verificar as credenciais do usuário no banco de dados. Ele constrói uma consulta SQL com base no nome de usuário e senha fornecidos como parâmetros. Em seguida, ele executa a consulta SQL e verifica se há uma linha correspondente no resultado. Se uma linha correspondente for encontrada, as credenciais são consideradas corretas, e o nome do usuário é armazenado na variável nome.
 
-`<Class.forName("com.mysql.Driver.Manager").newInstance();>`
-* As variáveis nome e result são públicas, o que viola as boas práticas de encapsulamento. É recomendável torná-las privadas e fornecer métodos públicos para acessá-las, se necessário.
-* Existem problemas com espaços em branco no SQL. É importante separar corretamente as cláusulas SQL com espaços. Você deve adicionar espaços após o final de cada cláusula SQL
+* Qualquer exceção que possa ocorrer ao conectar ao banco de dados ou executar a consulta SQL é tratada com blocos try-catch.
 
 ## 🤝 Colaboradores
 
